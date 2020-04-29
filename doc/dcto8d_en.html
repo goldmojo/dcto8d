@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <style type="text/css">
+  body {font-family: sans-serif; font-size: 80%; color: #000; background-color: #fff;}
+  h1,h2,h3 {font-family: sans-serif; color: #000; margin-top: 1em; margin-bottom: 0.5em;}
+  h1 {font-size: 180%; background-color: #4cf; padding-left: 0.2em;}
+  h2 {font-size: 140%; background-color: #cff; padding-left: 0.2em;}
+  h3 {font-size: 100%; border-style: none; border-bottom: solid 1px #ccc; margin-left: 0.8em;}
+  p  {margin-left: 1em; margin-top: 0em;}
+  ul {margin-left: 2em; margin-top: 0em;}
+ </style>
+ <title>DCTO8D</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <meta name="description" content="DCTO8D">
+ <meta name="author" content="Daniel Coulom">
+ <meta name="keywords" content="emulateur, emulator, thomson, to8, to8d, to9, to9+, sdl">
+</head>
+
+<body>
+<h1>DCTO8D 2009 : Thomson TO8D emulator</h1>
+<p>
+DCTO8D 2009 is a Thomson TO8D emulator, created by Daniel Coulom (mail to danielcoulom at gmail dot com).<br>
+DCTO8D website is <a href="http://dcto8.free.fr">dcto8.free.fr</a>.
+</p>
+<img src="pict/dcto8d.png" alt="dcto8d"><br>
+<img src="pict/to8d.jpg" alt="to8d"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>Photo &copy; 2007 - Daniel Coulom</small>
+
+<h2>Functions</h2>
+<p>
+DCTO8D 2009 emulates :
+</p>
+<ul>
+<li>Central Processor Unit with the <a href="http://fr.wikipedia.org/wiki/Motorola_6809">Motorola MC6809E</a> microprocessor.</li>
+<li>System monitor and the two built-in Basic interpreters.</li>
+<li>Keyboard, display and <a href="pict/crayon.jpg">lightpen</a>.</li> 
+<li>Two <a href="pict/manette.jpg">joysticks</a> and the <a href="pict/souris.jpg">mouse</a>.</li>
+<li>MK97-070 <a href="pict/lep-to7.jpg">tape unit</a>.</li>
+<li>3"1/2 floppy disk unit.
+<li><a href="pict/memo7.jpg">MEMO7</a> rom cartridges.</li>
+<li>Parallel printer (with a file).</li>
+</ul>
+<p>
+DCTO8D user interface comes with two languages : English and French.
+</p>
+<br>
+
+
+<h2>Technical tips</h2>
+<p>
+DCTO8D is a 'free software'.
+<img src="pict/sdl_powered.png" alt="sdl_powered">
+</p>
+<ul>
+<li>It is distributed under the terms of the GNU GPL <a href="dcto8d_licence.txt">(more in the official licence)</a></li>
+<li>It is programmed with the <a href="http://en.wikipedia.org/wiki/C_programming_language">C language</a></li>
+<li>It uses <a href="http://www.libsdl.org/">SDL</a> library for audio and video.</li>
+<li>User interface has been designed specially for this project.</li>
+<li>It doesn't use hardware specific or system specific function, to allow easy port.</li>
+<li>It can run with Windows, Linux, Mac-OS and many other systems.</li>
+</ul>
+<br>
+
+<h2>History</h2>
+<br>
+<ul>
+<li><b>2009-05-20 : </b>DCTO8D 2009.05 released</li>
+<li><b>2006-12-10 : </b>DCTO8D v10 released</li>
+</ul>
+<br>
+
+<h2>Installation</h2>
+<p>
+DCTO8D 2009 should run on every PC with a Pentium II or better processor, an audio adapter and a decent video adapter.<br>
+It is compatible with Linux, Windows and every operating system compatible with SDL. It also runs on other platforms.<br>
+The list of compatible systems will be added here, depending on the user's feedback.<br>
+<img src="pict/linux.png" alt="linux">
+<img src="pict/win32.png" alt="win32">
+</p>
+
+<h3>All platforms</h3>
+<br>
+<ul>
+<li>Create a new folder and name it dcto9d (or any other name you like).</li>
+<li>Download <a href="http://dcto8.free.fr/v11/dcto8d.2009/dcto8d.2009.05.zip">dcto8d.2009.05.zip</a> to this folder.</li>
+<li>Unpack the archive, keeping the directory structure.</li>
+<li>Put tape images (.k7 extension), disk images (.fd extension) and MEMO7 cartridge images (.rom extension) in a subfolder.<br>
+TO8D software can be downloaded from <a href="http://dcmoto.free.fr/programmes/title.html">dcmoto</a> collection.</li> 
+</ul>
+
+<h3><img src="pict/linux.png" alt="linux"> Linux</h3>
+<ul>
+<li>Install <a href="http://www.libsdl.org/">SDL</a> library.</li>
+<li>Compile dcto8d 2009</li>
+<li>Run the program</li> 
+</ul>
+
+<h3><img src="pict/win32.png" alt="win32"> Windows</h3>
+<ul>
+<li>SDL.dll and dcto8d.exe came with the zip archive. Just double-click on dcto8d.exe.</li>
+<li>You can make a shortcut and put it on the desktop or in the task bar.</li> 
+</ul>
+
+<h3>Other operating system</h3>
+<ul>
+<li>Same as Linux</li>
+</ul>
+<br>
+
+<h2>User Guide</h2>
+<h3>Emulator commands</h3>
+<p>
+All emulator commands are done through menu bar at the top of the program main window.<br>
+<br>
+<img src="pict/menu.png" alt="menu"> 
+</p>
+
+<ul>
+<br><li><b>About DCTO8D</b><br>
+Click [?] button on the right of the menu bar.<br>
+<br>
+<img src="pict/apropos.png" alt="a propos">
+<br>
+</li>
+
+<br><li><b>Settings</b><br>
+Click [Options] button on the right of the menu bar, and select Settings...<br> 
+The buttons on the right of each parameter can be used to change the value.<br>
+[Restore default values] button initializes all the values.<br>
+Increasing the number of frames per second dramatically increases resource usage.<br>
+With a slow computer, when audio output is poor, you need to decrease frames/s until you get good sound.<br>
+<br>
+<img src="pict/parametres.png" alt="parametres">
+<br>
+</li>
+
+<br><li><b>Keyboard layout</b><br>
+Click [Options] button on the right of the menu bar, and select Keyboard...<br> 
+Key codes depend on operating system and keyboard type. It is not possible to recognize every configuration.<br>
+Default in dcto8d is a standard French keyboard with Windows XP or Linux. For other configurations the keyboard layout must be redefined.<br>
+It is a straightforward process : each TO8D key is emulated with one key of the actual keyboard.<br>
+Type a key on the keyboard. Matching TO8D key is shown. If not correct, click the corresponding TO8D key picture.<br>
+Repeat this process for each of the 84 TO8D keys. Then you should save the customized keyboard layout, and it will be used each time you will run DCTO8D.<br>
+<br>
+<img src="pict/clavier.png" alt="clavier">
+<br>
+</li>
+
+<br><li><b>Joystick emulation</b><br>
+Click [Options] button on the right of the menu bar, and select Joysticks...<br> 
+Joysticks are emulated with the numeric keypad. For each joystick, four keys have to be choosen for directions and one for fire.<br>
+Process is exactly the same as for keyboard layout. Please note that the same key can be used for both TO8D keyboard and TO8D joystick emulation.<br>
+Make your choice to avoid mix-up when running a program testing both keyboard and joysticks.<br>
+<br>
+<img src="pict/manettes.png" alt="manettes">
+<br>
+</li>
+
+<br><li><b>Load tape, disk or MEMO7 cartridge</b><br>
+Click [k7], or [fd], or [memo] button in the status bar.
+A popup menu shows a list of folders and files.<br>
+You can click [unload] to unload currently loaded file,
+or [next...] or [back to first...] when these lines are displayed.<br>
+You can browse folders by clicking lines with a folder icon at the beginning.<br>
+Finally you can click a file name to load a k7, disk or cartridge image.<br>
+Be sure it is a correct image file, compatible with the TO8D.<br>
+<br>
+<img src="pict/k7.png" alt="k7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="pict/fd.png" alt="fd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="pict/memo.png" alt="memo">
+<br>
+</li>
+</ul>
+<br>
+
+<h3>TO8D commands</h3>
+<p>
+Look at the 'TO8D Guide' (in French), at <a href="http://dcmoto.free.fr">dcmoto</a> Documentation page.<br>
+<br>
+<img src="pict/guideto8d.jpg" alt="guide to8d">
+<br>
+</p>
+<br>
+
+<h3>TO8D game and program commands</h3>
+<p>
+Download user guides at <a href="http://dcmoto.free.fr">dcmoto</a> Programmes page.
+</p>
+<br>
+
+</body>
+</html>

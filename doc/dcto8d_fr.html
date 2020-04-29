@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+ <style type="text/css">
+  body {font-family: sans-serif; font-size: 80%; color: #000; background-color: #fff;}
+  h1,h2,h3 {font-family: sans-serif; color: #000; margin-top: 1em; margin-bottom: 0.5em;}
+  h1 {font-size: 180%; background-color: #4cf; padding-left: 0.2em;}
+  h2 {font-size: 140%; background-color: #cff; padding-left: 0.2em;}
+  h3 {font-size: 100%; border-style: none; border-bottom: solid 1px #ccc; margin-left: 0.8em;}
+  p  {margin-left: 1em; margin-top: 0em;}
+  ul {margin-left: 2em; margin-top: 0em;}
+ </style>
+ <title>DCTO8D</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <meta name="description" content="DCTO8D">
+ <meta name="author" content="Daniel Coulom">
+ <meta name="keywords" content="emulateur, emulator, thomson, to8, to8d, to9, to9+, sdl">
+</head>
+
+<body>
+<h1>DCTO8D 2009 : Emulateur TO8D Thomson</h1>
+<p>
+DCTO8D 2009 est un &eacute;mulateur de TO8D Thomson cr&eacute;&eacute; par Daniel Coulom (mail to danielcoulom at gmail point com).<br>
+Le site web de DCTO8D est <a href="http://dcto8.free.fr">dcto8.free.fr</a>.
+</p>
+<img src="pict/dcto8d.png" alt="dcto8d"><br>
+<img src="pict/to8d.jpg" alt="to8d"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>Photo &copy; 2007 - Daniel Coulom</small>
+
+<h2>Fonctions</h2>
+<p>
+DCTO8D 2009 &eacute;mule :
+</p>
+<ul>
+<li>L'unit&eacute; centrale &eacute;quip&eacute;e du microprocesseur <a href="http://fr.wikipedia.org/wiki/Motorola_6809">Motorola MC6809E</a>.</li>
+<li>Le moniteur syst&egrave;me et les deux interpr&eacute;teurs Basic int&eacute;gr&eacute;s.</li>
+<li>Le clavier, l'&eacute;cran, le <a href="pict/crayon.jpg">crayon optique</a>.</li> 
+<li>Les deux <a href="pict/manette.jpg">manettes</a> de jeu et la <a href="pict/souris.jpg">souris</a>.</li>
+<li>Le <a href="pict/lep-to7.jpg">lecteur/enregistreur</a> de programmes (LEP).</li>
+<li>Le lecteur de disquette 3"1/2
+<li>Les cartouches <a href="pict/memo7.jpg">memo7</a>.</li>
+<li>L'imprimante parall&egrave;le (dans un fichier).</li>
+</ul>
+<p>
+L'interface utilisateur est bilingue : anglais et francais.
+</p>
+<br>
+
+<h2>Informations techniques</h2>
+<p>
+DCTO8D 2009 est un logiciel libre.<br>
+<img src="pict/sdl_powered.png" alt="sdl_powered"> 
+</p>
+<ul>
+<li>Il est distribu&eacute; sous licence GPL <a href="dcto8d_licence.txt">(voir la licence officielle)</a></li>
+<li>Il est programm&eacute; en <a href="http://en.wikipedia.org/wiki/C_programming_language">langage C</a></li>
+<li>Il utilise la biblioth&egrave;que <a href="http://www.libsdl.org/">SDL</a> pour la video et l'audio.</li>
+<li>L'interface utilisateur a &eacute;t&eacute; d&eacute;velopp&eacute;e sp&eacute;cialement pour ce projet.</li>
+<li>Il n'utilise pas de fonction sp&eacute;cifique &agrave; une machine ou &agrave; un syst&egrave;me d'exploitation, pour rester portable.</li>
+<li>Il est compatible avec Windows, Linux, Mac-OS et beaucoup d'autres syst&egrave;mes.</li>
+</ul>
+<br>
+
+<h2>Historique</h2>
+<ul>
+<li><b>2009-05-20 : </b>Diffusion de DCTO8D 2009.05</li>
+<li><b>2006-12-10 : </b>Diffusion de DCTO8D v10</li>
+</ul>
+<br>
+
+<h2>Installation</h2>
+<p>
+DCTO8D 2009 fonctionne sur tous les PC &agrave; partir du Pentium II, avec une carte son, une carte video r&eacute;cente.<br>
+Le syst&egrave;me d'exploitation peut &ecirc;tre Linux ou Windows ou tout autre syst&egrave;me compatible avec SDL.<br>
+DCTO8D 2009 fonctionne aussi sur d'autres machines et d'autres syst&egrave;mes.<br>
+La liste sera donn&eacute;e ici en fonction des t&eacute;moignages d'utilisateurs.<br>
+<img src="pict/linux.png" alt="linux">
+<img src="pict/win32.png" alt="win32">
+</p>
+
+<h3>Tous syst&egrave;mes</h3>
+<ul>
+<li>Cr&eacute;ez un nouveau dossier et nommez-le dcto8d (ou tout autre nom &agrave; votre convenance).</li>
+<li>Dans ce dossier chargez l'archive <a href="http://dcto8.free.fr/dcto8d.2009/dcto8d.2009.05.zip">dcto8d.2009.05.zip</a></li>
+<li>D&eacute;compactez l'archive en conservant la structure des répertoires.</li>
+<li>Dans un sous-dossier de votre choix placez les images de cassettes, disquettes ou cartouches du site <a href="http://dcmoto.free.fr/programmes/title.html">dcmoto</a>.</li> 
+</ul>
+
+<h3><img src="pict/linux.png" alt="linux"> Linux</h3>
+<ul>
+<li>Installez la biblioth&egrave;que <a href="http://www.libsdl.org/">SDL</a></li>
+<li>Compilez DCTO8D 2009</li>
+<li>Ex&eacute;cutez le programme compil&eacute;</li>
+</ul>
+
+<h3><img src="pict/win32.png" alt="win32"> Windows</h3>
+<ul>
+<li>Les fichiers dcto8d.exe et SDL.dll sont fournis. Il suffit d'un double clic sur dcto8d.exe.</li>
+<li>Il est conseill&eacute; de cr&eacute;er un raccourci et de le placer sur le bureau ou dans la barre des tâches.</li> 
+</ul>
+
+<h3>Autres syst&egrave;mes</h3>
+<ul>
+<li>Comme pour Linux</li>
+</ul>
+<br>
+
+<h2>Utilisation</h2>
+<h3>Commandes de l'&eacute;mulateur</h3>
+<p>
+Toutes les commandes de l'&eacute;mulateur sont effectu&eacute;es &agrave; partir de la barre de menu situ&eacute;e en haut de la fen&ecirc;tre principale.<br>
+<br>
+<img src="pict/menu.png" alt="menu"> 
+</p>
+
+<ul>
+<br><li><b>A propos de DCTO8D</b><br>
+Cliquez sur le bouton [?] &agrave; droite de la barre de menu.<br>
+<br>
+<img src="pict/apropos.png" alt="a propos">
+<br>
+</li>
+
+<br><li><b>Param&egrave;tres</b><br>
+Cliquez sur le bouton [Options] &agrave; droite de la barre de menu, et s&eacute;lectionnez la ligne Param&egrave;tres...<br> 
+Les boutons &agrave; droite de chaque ligne permettent de s&eacute;lectionner la valeur d&eacute;sir&eacute;e.<br>
+Le boutons [R&eacute;tablir les valeurs par d&eacute;faut] r&eacute;initialise toutes les valeurs.<br>
+Notez que la nombre de trames par seconde a un impact important sur les ressources utilis&eacute;es.<br>
+Avec une machine lente, si le rendu audio est mauvais, il faut diminuer ce nombre jusqu'&agrave; obtenir un son correct.<br>
+<br>
+<img src="pict/parametres.png" alt="parametres">
+<br>
+</li>
+
+<br><li><b>Configuration du clavier</b><br>
+Cliquez sur le bouton [Options] &agrave; droite de la barre de menu, et s&eacute;lectionnez la ligne Clavier...<br> 
+Les codes des touches dépendent du type de clavier et du système d'exploitation.
+Il est impossible de prévoir toutes les configurations.<br>
+Par d&eacute;faut dcto9p utilise un clavier standard francais dans Windows XP ou Linux. Pour les autres configurations il faut red&eacute;finir la disposition.<br>
+Le principe est simple : à chaque touche physique du TO8D correspond une touche physique de la machine utilisée.<br>
+Mode opératoire : tapez une touche sur votre clavier. La touche correspondante du TO8D est affich&eacute;e. Si elle n'est pas<br>
+correcte, cliquez sur l'image de la touche TO8D souhait&eacute;e. R&eacute;p&eacute;tez l'op&eacute;ration pour les 84 touches du TO8D.<br>
+Ensuite vous pouvez sauver votre disposition personnalis&eacute;e, elle sera ainsi utilis&eacute;e au prochain lancement de DCTO8D.<br>
+<br>
+<img src="pict/clavier.png" alt="clavier">
+<br>
+</li>
+
+<br><li><b>Configuration des manettes</b><br>
+Cliquez sur le bouton [Options] &agrave; droite de la barre de menu, et s&eacute;lectionnez la ligne Manettes...<br> 
+Les manettes sont émulées par le clavier (utilisez de pr&eacute;f&eacute;rence le pav&eacute; num&eacute;rique).<br>
+Pour chacune des deux manettes il faut d&eacute;finir quatre touches de direction et une touche d'action.<br>
+Le principe est exactement le même que pour le clavier. Notez que la même touche peut être utilisée à la fois pour émuler les manettes et le clavier.<br>
+A vous de faire les choix judicieux pour ne pas perturber le fonctionnement du programme exécuté lors de l'utilisation des manettes.<br>
+<br>
+<img src="pict/manettes.png" alt="manettes">
+<br>
+</li>
+
+<br><li><b>Chargement de cassette, disquette ou cartouche MEMO7</b><br>
+Cliquez sur le bouton [k7], ou [fd], ou [memo] de la barre sup&eacute;rieure. 
+Une liste de dossiers et de fichiers est affich&eacute;e dans un menu.<br>
+Vous pouvez cliquer sur la ligne [d&eacute;charger] pour enlever le logiciel actuellement charg&eacute;,
+et sur [suite...] ou [retour au d&eacute;but...] si ces lignes sont affich&eacute;es.<br>
+Vous pouvez naviguer dans les dossiers en cliquant sur une ligne pr&eacute;c&eacute;d&eacute;e du symbole dossier.<br>
+Vous pouvez enfin cliquer sur un nom de fichier pour charger une image de cassette, disquette ou cartouche.<br>
+A vous de v&eacute;rifier que le fichier est au bon format et compatible avec le TO8D.<br>
+<br>
+<img src="pict/k7.png" alt="k7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="pict/fd.png" alt="fd">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="pict/memo.png" alt="memo">
+<br>
+</li>
+</ul>
+<br>
+
+<h3>Commandes du TO8D</h3>
+<p>
+Consultez le Guide du TO8D, &agrave; la page Documentation du site <a href="http://dcmoto.free.fr">dcmoto</a><br>
+<br>
+<img src="pict/guideto8d.jpg" alt="guide to8d">
+<br>
+</p>
+<br>
+
+<h3>Commandes des logiciels</h3>
+<p>
+T&eacute;l&eacute;chargez la documentation sp&eacute;cifique, &agrave; la page Programmes du site <a href="http://dcmoto.free.fr">dcmoto</a>
+</p>
+<br>
+
+</body>
+</html>

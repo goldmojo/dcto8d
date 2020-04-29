@@ -1,0 +1,77 @@
+
+                          LICENCE de DCTO8D 2009
+                               18 mai 2009
+
+ Copyright (C) 2009 Daniel Coulom - danielcoulom@gmail.com
+ Chacun est autorise a copier et distribuer des copies conformes de ce document
+ de licence, mais toute modification en est proscrite.
+
+
+
+ 1) DCTO8D 2009
+ --------------
+
+ DCTO8D 2009 est un logiciel libre ; vous pouvez le redistribuer ou le modifier
+ suivant les termes de la “GNU General Public License” telle que publiee par la
+ Free Software Foundation : soit la version 3 de cette licence, soit (a votre
+ gre) toute version ulterieure.
+  
+ DCTO8D 2009 est distribue dans l’espoir qu’il vous sera utile, mais SANS
+ AUCUNE GARANTIE : sans meme la garantie implicite de COMMERCIALISABILITE ni
+ d’ADEQUATION À UN OBJECTIF PARTICULIER. Consultez la Licence Generale Publique
+ GNU pour plus de details.
+  
+ Vous devriez avoir reçu une copie de la Licence Generale Publique GNU avec
+ DCTO8D 2009. Si ce n’est pas le cas, consultez http://www.gnu.org/licenses/
+ Les sources de DCTO8D 2009 sont disponibles a http://dcto8.free.fr/ 
+
+
+
+ 2) Bibliotheque SDL
+ -------------------
+
+ DCTO8D 2009 utilise la bibliotheque Simple DirectMedia Layer (SDL). SDL est
+ actuellement disponible suivant les termes de la "GNU Lesser General Public
+ License" (LGPL) : soit la version 2.1, soit (a votre gre) toute version
+ ulterieure. http://www.gnu.org/copyleft/lesser.html
+ Les sources sont disponibles a http://www.libsdl.org/ 
+
+
+_______________________________________________________________________________
+
+                           DCTO8D 2009 LICENSE
+                              May 18, 2009
+
+ Copyright (C) 2009 Daniel Coulom - danielcoulom@gmail.com
+ Everyone is permitted to copy and distribute verbatim copies of this license
+ document, but changing it is not allowed.
+
+
+
+ 1) DCTO8D 2009
+ --------------
+
+ DCTO8D 2009 is free software : you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation, either version 3 of the License, or (at your option) any later
+ version.
+ 
+ DCTO8D 2009 is distributed in the hope that it will be useful, but WITHOUT ANY
+ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License along with
+ DCTO8D 2009. If not, see http://www.gnu.org/licenses/
+ DCTO8D 2009 source is available from http://dcto8.free.fr/ 
+
+
+
+ 2) SDL library
+ --------------
+
+ DCTO8D 2009 uses Simple DirectMedia Layer (SDL) library. SDL is currently
+ available under the GNU Lesser General Public License (LGPL) version 2.1 or
+ newer. http://www.gnu.org/copyleft/lesser.html
+ The source is available from the libraries page at the SDL website:
+ http://www.libsdl.org/ 
+
