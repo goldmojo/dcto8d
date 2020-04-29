@@ -1,7 +1,7 @@
 # Project: dcto8d
 
-OSTYPE=linux
-#OSTYPE=gcw0
+#OSTYPE=linux
+OSTYPE=gcw0
 
 ifeq "$(OSTYPE)" "gcw0"	
 TOOLCHAIN = /opt/gcw0-toolchain/usr
@@ -20,8 +20,7 @@ F_OPTS =
 CDEFS = 
 
 ifeq "$(OSTYPE)" "gcw0"	
-CFLAGS = -Isource -I$(TOOLCHAIN)/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL $(W_OPTS)
-#CFLAGS = -D_GCW0_ -G0 -O3 -march=mips32 -mtune=mips32r2 -Isource -I$(TOOLCHAIN)/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL -mhard-float -mbranch-likely -mno-mips16 $(W_OPTS) $(F_OPTS)
+CFLAGS = $(W_OPTS) -Isource -I$(TOOLCHAIN)/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL -lSDL
 else
 CFLAGS = $(W_OPTS) -Isource `sdl-config --cflags --libs`
 endif
