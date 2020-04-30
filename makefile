@@ -17,11 +17,11 @@ endif
 W_OPTS = -Wall -Wno-write-strings -Wno-sign-compare
 F_OPTS = 
 
-CDEFS = 
-
 ifeq "$(OSTYPE)" "gcw0"	
+CDEFS = -D__GCW0__
 CFLAGS = $(W_OPTS) -Isource -I$(TOOLCHAIN)/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL -lSDL
 else
+CDEFS = 
 CFLAGS = $(W_OPTS) -Isource `sdl-config --cflags --libs`
 endif
 

@@ -24,7 +24,20 @@
 
 #define XBITMAP 672
 #define YBITMAP 216
-#define YSTATUS 20
+
+#define YSTATUS 20             //taille de la barre de statut en haut
+
+#ifdef __GCW0__
+ #define XMIN 320              //taille min de l'ecran
+ #define YMIN 240
+ #define XINIT 320             //taille initiale de l'ecran
+ #define YINIT 240
+#else
+ #define XMIN 336              //taille min de l'ecran
+ #define YMIN 236
+ #define XINIT XBITMAP         //taille initiale de l'ecran
+ #define YINIT 2 * YBITMAP + YSTATUS
+#endif
 
 #define LANGUAGE_MAX 2        //nombre de langues differentes
 #define TEXT_MAXLENGTH 256    //longueur maxi d'une chaine de texte
@@ -35,7 +48,8 @@
 #define KEYBOARDKEY_MAX 84    //nombre de touches du clavier TO8D
 #define JOYSTICKKEY_MAX 10    //nombre total de contacts des deux manettes
 
-#define FLAGS SDL_SWSURFACE | SDL_DOUBLEBUF
+//#define FLAGS SDL_SWSURFACE | SDL_DOUBLEBUF
+#define FLAGS SDL_SWSURFACE
 
 typedef struct
 {

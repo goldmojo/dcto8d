@@ -24,7 +24,12 @@
 #include <string.h>
 #include "dcto8dglobal.h"
 
+#ifdef __GCW0__
+//#define VIDEO_MODE SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_FULLSCREEN
+#define VIDEO_MODE SDL_SWSURFACE | SDL_FULLSCREEN
+#else
 #define VIDEO_MODE SDL_HWSURFACE | SDL_DOUBLEBUF | SDL_RESIZABLE
+#endif
 
 // global variables //////////////////////////////////////////////////////////
 SDL_Surface *screen = NULL;    //surface d'affichage de l'ecran
@@ -241,18 +246,18 @@ void Resizescreen(int x, int y)
  //creation nouvelle surface
  SDL_FreeSurface(screen);
  y -= YSTATUS;
- xclient = (x < 336) ? 336 : x;
- yclient = (y < 216) ? 216 : y;
+ xclient = (x < XMIN) ? XMIN : x;
+ yclient = (y < YMIN - YSTATUS) ? YMIN - YSTATUS : y;
  screen = SDL_SetVideoMode(xclient, yclient + YSTATUS, 32, VIDEO_MODE);
  if(screen == NULL)
  {
-  screen = SDL_SetVideoMode(336, 216, 8, 0);
+  screen = SDL_SetVideoMode(XMIN, YMIN - YSTATUS, 8, 0);
   SDL_WM_SetCaption(" Erreur fatale : Mode video non compatible", NULL);
   SDL_error(37);
  }
  pmin = (int*)(screen->pixels) + YSTATUS * xclient;
  pmax = pmin + yclient * xclient;
- //rafraichissement de l'écran
+ //rafraichissement de l'ï¿½cran
  pcurrentline = pmin;    //initialisation pointeur ligne courante
  pcurrentpixel = pmin;   //initialisation pointeur pixel courant
  currentlinesegment = 0; //initialisation numero d'octet dans la ligne

@@ -107,8 +107,8 @@ void Drawoptionbox()
 void Initdefault()
 {
  language = 0;          //francais
- xclient = XBITMAP;     //zoomx 2
- yclient = 2 * YBITMAP; //zoomy 2
+ xclient = XINIT;     //zoomx 2
+ yclient = YINIT - YSTATUS; //zoomy 2
  frequency = 1000;      //1000 kHz
  vblnumbermax = 2;      //nombre de vbl entre deux affichages
  k7protection = 1;      //protection cassette
@@ -249,10 +249,13 @@ void Initoptions()
  if(language > (LANGUAGE_MAX - 1)) language = LANGUAGE_MAX - 1;
  if(frequency < 100) frequency = 100;
  if(frequency > 9000) frequency = 9000;
- if(xclient < (XBITMAP / 2)) xclient = XBITMAP / 2;
- if(xclient > (2 * XBITMAP)) xclient = 2 * XBITMAP;
- if(yclient < YBITMAP) yclient = YBITMAP;
- if(yclient > (4 * YBITMAP)) yclient = 4 * YBITMAP;
+ //desactive le resize si en fullscreen GCW0
+ #ifndef __GCW0__
+  if(xclient < (XBITMAP / 2)) xclient = XBITMAP / 2;
+  if(xclient > (2 * XBITMAP)) xclient = 2 * XBITMAP;
+  if(yclient < YBITMAP) yclient = YBITMAP;
+  if(yclient > (4 * YBITMAP)) yclient = 4 * YBITMAP;
+ #endif
  if(vblnumbermax < 1) vblnumbermax = 1;
  if(vblnumbermax > 64) vblnumbermax = 64;
  if(k7protection) k7protection = 1;

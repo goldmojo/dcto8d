@@ -55,10 +55,10 @@ const int gris3 = 0xff606060;
 
 //definition des boutons
 button bouton[BOUTON_MAX] = {
-{"¤1",        16,  16}, //00 croix
-{" ¤6",       16,   8}, //01 previous
-{" ¤7",       16,   8}, //02 next
-{"¤8",        16,  16}, //03 fleche pour popup
+{"ï¿½1",        16,  16}, //00 croix
+{" ï¿½6",       16,   8}, //01 previous
+{" ï¿½7",       16,   8}, //02 next
+{"ï¿½8",        16,  16}, //03 fleche pour popup
 {"",           0,   0}, //04
 {"",           0,   0}, //05
 {"",           0,   0}, //06
@@ -79,8 +79,8 @@ button bouton[BOUTON_MAX] = {
 {" _ 6",      26,  24}, //0x01
 {"  Y",       26,  24}, //0x02
 {"  H",       26,  24}, //0x03
-{"  ¤2",      26,  24}, //0x04 fleche haut
-{"  ¤5",      26,  24}, //0x05 fleche droite
+{"  ï¿½2",      26,  24}, //0x04 fleche haut
+{"  ï¿½5",      26,  24}, //0x05 fleche droite
 {"RAZ",       34,  24}, //0x06
 {"  N",       26,  24}, //0x07
 {"F8  F3",    38,  18}, //0x08
@@ -88,7 +88,7 @@ button bouton[BOUTON_MAX] = {
 {"  T",       26,  24}, //0x0a
 {"  G",       26,  24}, //0x0b
 {" = +",      26,  24}, //0x0c
-{" ¤4",       26,  24}, //0x0d fleche gauche
+{" ï¿½4",       26,  24}, //0x0d fleche gauche
 {"INS",       26,  24}, //0x0e
 {"  B",       26,  24}, //0x0f
 {"F9  F4",    38,  18}, //0x10
@@ -108,7 +108,7 @@ button bouton[BOUTON_MAX] = {
 {"  0",       26,  24}, //0x1e pad
 {"  C",       26,  24}, //0x1f
 {"F6  F1",    38,  18}, //0x20
-{" é 2",      26,  24}, //0x21
+{" ï¿½ 2",      26,  24}, //0x21
 {"  Z",       26,  24}, //0x22
 {"  S",       26,  24}, //0x23
 {"  8",       26,  24}, //0x24 pad
@@ -124,7 +124,7 @@ button bouton[BOUTON_MAX] = {
 {"  6",       26,  24}, //0x2e pad
 {"  W",       26,  24}, //0x2f
 {"  STOP",    44,  24}, //0x30
-{" è 7",      26,  24}, //0x31
+{" ï¿½ 7",      26,  24}, //0x31
 {"  U",       26,  24}, //0x32
 {"  J",       26,  24}, //0x33
 {"ESPACE",   208,  24}, //0x34
@@ -136,23 +136,23 @@ button bouton[BOUTON_MAX] = {
 {"  I",       26,  24}, //0x3a
 {"  K",       26,  24}, //0x3b
 {"  $  &",    40,  24}, //0x3c
-{"  ¤3",      26,  24}, //0x3d fleche bas
+{"  ï¿½3",      26,  24}, //0x3d fleche bas
 {"  ]  }",    32,  24}, //0x3e
 {" ;  .",     26,  24}, //0x3f
 {"?????",     26,  24}, //0x40
-{" ç 9",      26,  24}, //0x41
+{" ï¿½ 9",      26,  24}, //0x41
 {"  O",       26,  24}, //0x42
 {"  L",       26,  24}, //0x43
 {" - \\",     26,  24}, //0x44
-{"ù %",       26,  24}, //0x45
+{"ï¿½ %",       26,  24}, //0x45
 {"ENT",       26,  50}, //0x46
 {" : /",      26,  24}, //0x47
 {"?????",     26,  24}, //0x48
-{" à 0",      26,  24}, //0x49
+{" ï¿½ 0",      26,  24}, //0x49
 {"  P",       26,  24}, //0x4a
 {"  M",       26,  24}, //0x4b
-{"  ) °",     26,  24}, //0x4c
-{" ^ ¨",      26,  24}, //0x4d
+{"  ) ï¿½",     26,  24}, //0x4c
+{" ^ ï¿½",      26,  24}, //0x4d
 {"  3",       26,  24}, //0x4e pad
 {" > <",      26,  24}, //0x4f
 {"LCK",       26,  24}, //0x50
@@ -174,6 +174,15 @@ int fontw[] = {                                    //largeur des caracteres
 const dialogbutton closebutton = {-21, 5, 0};
 
 #define STATUSBUTTON_MAX 5    //nombre de boutons de la barre de statut
+#ifdef __GCW0__
+const dialogbutton statusbutton[STATUSBUTTON_MAX] = {
+{ 29,  2, 11}, //0x00 "k7",
+{ 101,  2, 12}, //0x01 "fd",
+{173,  2, 13}, //0x02 "memo",
+{-64,  2,  8}, //0x03 "Options",
+{-20,  2,  9}  //0x04 "?",
+};
+#else
 const dialogbutton statusbutton[STATUSBUTTON_MAX] = {
 { 56,  2, 11}, //0x00 "k7",
 {186,  2, 12}, //0x01 "fd",
@@ -181,6 +190,7 @@ const dialogbutton statusbutton[STATUSBUTTON_MAX] = {
 {-64,  2,  8}, //0x03 "Options",
 {-20,  2,  9}  //0x04 "?",
 };
+#endif
 
 SDL_Surface *buttonup[BOUTON_MAX][LANGUAGE_MAX];
 SDL_Surface *buttondown[BOUTON_MAX][LANGUAGE_MAX];
@@ -201,7 +211,7 @@ int xcursor = 0;               //position du curseur dans la chaine de caractere
 //char editboxtext[EDITBOX_MAX][TEXT_MAXLENGTH]; //zones texte des editbox
 char dirlist[DIRLIST_NMAX][DIRLIST_LENGTH]; //liste des fichiers du repertoire
 char *popuptabletext[POPUPTABLE_NMAX];  //pointeur vers lignes de la popup table
-char path[3][TEXT_MAXLENGTH];   //répertoires des fichiers k7, fd, memo
+char path[3][TEXT_MAXLENGTH];   //rï¿½pertoires des fichiers k7, fd, memo
 
 void (*Load[3])(char *name);   //pointeur fonction de chargement de fichier
 
@@ -211,7 +221,7 @@ extern int xclient, yclient;   //taille ecran affiche
 extern char *msg[MSG_MAX][LANGUAGE_MAX];  //messages en plusieurs langues
 extern int language;
 
-//Création d'une surface contenant un texte////////////////////////////////////
+//Crï¿½ation d'une surface contenant un texte////////////////////////////////////
 SDL_Surface *Rendertext(char *string, int color, int background)
 {
  //color
@@ -233,19 +243,19 @@ SDL_Surface *Rendertext(char *string, int color, int background)
   c = string[i] & 0xff;
   switch(c)
   {
-   case 224: c = 16; break; //à
-   case 226: c = 17; break; //â
-   case 232: c = 18; break; //è
-   case 233: c = 19; break; //é
-   case 234: c = 20; break; //ê
-   case 235: c = 21; break; //ë
-   case 238: c = 22; break; //î
-   case 239: c = 23; break; //ï
-   case 244: c = 24; break; //ô
-   case 249: c = 25; break; //ù
-   case 251: c = 26; break; //û
-   case 231: c = 27; break; //ç
-   case 176: c = 28; break; //°
+   case 224: c = 16; break; //ï¿½
+   case 226: c = 17; break; //ï¿½
+   case 232: c = 18; break; //ï¿½
+   case 233: c = 19; break; //ï¿½
+   case 234: c = 20; break; //ï¿½
+   case 235: c = 21; break; //ï¿½
+   case 238: c = 22; break; //ï¿½
+   case 239: c = 23; break; //ï¿½
+   case 244: c = 24; break; //ï¿½
+   case 249: c = 25; break; //ï¿½
+   case 251: c = 26; break; //ï¿½
+   case 231: c = 27; break; //ï¿½
+   case 176: c = 28; break; //ï¿½
   }
   text[i] = c;
  }
@@ -253,7 +263,7 @@ SDL_Surface *Rendertext(char *string, int color, int background)
  //conversion des carateres speciaux
  for(i = 0; i < n; i++)
  {
-  if(text[i] != '¤') continue;
+  if(text[i] != 'ï¿½') continue;
   text[i] = text[i + 1] - 48; n--;
   for(j = i + 1; j < n; j++) text[j] = text[j + 1];
  }
@@ -360,7 +370,7 @@ void Initbuttonsurfaces()
 
  for(i = 0; i < BOUTON_MAX; i++)
  {
-  if(bouton[i].name[0] == 0) continue; //bouton non créé
+  if(bouton[i].name[0] == 0) continue; //bouton non crï¿½ï¿½
   w = bouton[i].w;
   h = bouton[i].h;
   //creation du bouton dans chaque langue
@@ -420,8 +430,8 @@ void Sortdirectory(char *path)
   strcat(name, entry->d_name);
   dirlist[dircount][0] = 0;
   dummy = opendir(name);
-  if(dummy) {closedir(dummy); strcpy(dirlist[dircount], " ¤: ");}
-  if(!strcmp(entry->d_name, "..")) strcpy(dirlist[dircount], " ¤9 ");
+  if(dummy) {closedir(dummy); strcpy(dirlist[dircount], " ï¿½: ");}
+  if(!strcmp(entry->d_name, "..")) strcpy(dirlist[dircount], " ï¿½9 ");
   if(strlen(dirlist[dircount]) > 0) dirlist[dircount][0] = 15; //caractere nul
   strncat(dirlist[dircount], entry->d_name, DIRLIST_LENGTH);
   dirlist[dircount][DIRLIST_LENGTH - 1] = 0;
@@ -473,7 +483,7 @@ void Drawtextbox(SDL_Surface *surf, char *string, SDL_Rect rect,
 
 //Draw message box ////////////////////////////////////////////////////////////
 void Drawmessagebox(char *titre, char *text1[], char *text2[])
-//text1 est affiché sur fond gris et text2 sur fond blanc
+//text1 est affichï¿½ sur fond gris et text2 sur fond blanc
 //le dernier des deux textes doit etre une chaine de longueur nulle
 {
  SDL_Rect rect;
@@ -549,7 +559,11 @@ void Drawk7index()
  extern int k7index, k7indexmax;
  index[0] = 0;
  if(fk7 != NULL) sprintf(index, "%03d/%03d", k7index, k7indexmax);
+ #ifdef __GCW0__
+ rect.x = 2; rect.w = 25; rect.y = 2; rect.h = 15;
+ #else
  rect.x = 2; rect.w = 52; rect.y = 2; rect.h = 15;
+ #endif
  Drawtextbox(statusbar, index, rect, 0, blanc, -1);
 }
 
@@ -574,10 +588,17 @@ void Drawstatusbar()
  Drawk7index();
 
  //nom cassette, disquette, memo7
+ #ifdef __GCW0__
+ rect.y = 2; rect.h = 15; rect.w = 50;
+ rect.x = 49;  Drawtextbox(statusbar, k7name, rect, 0, blanc, -1);
+ rect.x = 121; Drawtextbox(statusbar, fdname, rect, 0, blanc, -1);
+ rect.x = 201; Drawtextbox(statusbar, memoname, rect, 0, blanc, -1);
+ #else
  rect.y = 2; rect.h = 15; rect.w = 104;
  rect.x = 76;  Drawtextbox(statusbar, k7name, rect, 0, blanc, -1);
  rect.x = 206; Drawtextbox(statusbar, fdname, rect, 0, blanc, -1);
  rect.x = 354; Drawtextbox(statusbar, memoname, rect, 0, blanc, -1);
+ #endif
 
  //boutons
  for(i = 0; i < STATUSBUTTON_MAX; i++)

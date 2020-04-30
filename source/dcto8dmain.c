@@ -26,7 +26,7 @@
 #include "dcto8dmsg.h"
 #include "dcto8dinterface.h"
 
-#define SDL_main main    //indispensable pour éviter l'erreur
+#define SDL_main main    //indispensable pour ï¿½viter l'erreur
                          //undefined reference to `WinMain@16'
 
 
@@ -196,7 +196,9 @@ void Eventloop()
  extern dialogeditbox *focus;   //editbox ayant le focus
  extern int xclient, yclient, blink;
  extern int penbutton, xmouse, ymouse, xmove, ymove, xpen, ypen;
+ #ifndef __GCW0__
  extern void Resizescreen(int x, int y), Displayscreen();
+ #endif
  extern void Mouseclick(), Dialogmove();
  extern void Keydown(int sym, int scancode, int unicode);
  extern void Keyup(int sym, int scancode);
@@ -207,8 +209,10 @@ void Eventloop()
   {
    switch(event.type)
    {
+    #ifndef __GCW0__
     case SDL_VIDEORESIZE:
          Resizescreen(event.resize.w, event.resize.h); break;
+    #endif
     case SDL_MOUSEBUTTONDOWN:
          penbutton = 1; Mouseclick(); break;
     case SDL_MOUSEBUTTONUP:
@@ -219,6 +223,8 @@ void Eventloop()
          ypen = (ymouse - YSTATUS) * YBITMAP / yclient - 8;
          if(xmove) if(ymove) Dialogmove(); break;
     case SDL_KEYDOWN:
+         // DEBUG WIP <=> Exit on keypress
+         return;
          Keydown(event.key.keysym.sym, event.key.keysym.scancode,
                  event.key.keysym.unicode); break;
     case SDL_KEYUP:
@@ -278,11 +284,12 @@ int main(int argc, char *argv[])
  Initfilenames();
  Init6809();
  Keyboardinit();                   //Keyboard initialization
- Hardreset();                      //MO5 initialization
+ Hardreset();                      //TO8D initialization
 
  //initialize SDL video and keyboard
  if(SDL_Init(SDL_INIT_VIDEO) < 0) SDL_error(2);
  atexit(SDL_Quit);
+ //titre de la fenetre (note : absent en fullscreen gcw0)
  rw = SDL_RWFromMem(dcto8dicon, sizeof(dcto8dicon));
  SDL_WM_SetIcon(SDL_LoadBMP_RW(rw, 1), NULL);  //icone fenetre
  SDL_WM_SetCaption(msg[0][language], NULL);    //titre fenetre
