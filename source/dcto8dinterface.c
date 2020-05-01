@@ -846,7 +846,11 @@ void Drawpopupdirectory(int n)
  void *string;
  Sortdirectory(path[n]);
  if(dircount <= 0) return;
+ #ifdef __GCW0__
+ dirmax = dirmin + 10;
+ #else
  dirmax = dirmin + 20;
+ #endif
  if(dirmax > dircount) dirmax = dircount;
  dialogrect.x = statusbutton[n].x; dialogrect.w = 200;
  dialogrect.y = YSTATUS; dialogrect.h = 16 * (dirmax - dirmin) + 26;
@@ -854,7 +858,7 @@ void Drawpopupdirectory(int n)
  Createbox(gris0);
  rect.x = 10; rect.w = dialogrect.w - 12;
  rect.y = 4; rect.h = 14;
- Drawtextbox(dialogbox, msg[39][language], rect, 0, gris0, 0);
+ Drawtextbox(dialogbox, msg[39][language], rect, 0, gris0, 0); //39=decharger
  for(i = dirmin; i < dirmax; i++)
  {
   rect.y += 16;
@@ -863,7 +867,7 @@ void Drawpopupdirectory(int n)
  if((dirmax < dircount) || (dirmin > 0))
  {
   rect.y += 16;
-  string = msg[(dirmax == dircount) ? 41 : 40][language];
+  string = msg[(dirmax == dircount) ? 41 : 40][language]; //40=suite, 41=debut
   Drawtextbox(dialogbox, string, rect, 0, gris0, 0);
  }
  dialog = 1000 + n;
