@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <ctype.h>
 #include "dcto8dglobal.h"
+#include "dcto8ddevices.h"
 
 // Variable globales /////////////////////////////////////////////////////////
 DIR *dmemo = NULL;  // pointeur directory pour recherche memo7
@@ -120,9 +121,9 @@ void Formatdisk()
  //erreur 72 = protection ecriture
  if(fdprotection == 1) {Diskerror(72); return;}
  u = Mgetc(0x6049) & 0xff; if(u > 03) return; //unite
- u = (1280 * u) << 8; //debut de l'unité dans le fichier .fd
+ u = (1280 * u) << 8; //debut de l'unitï¿½ dans le fichier .fd
  fatlength = 160;     //80=160Ko, 160=320Ko
- //rem: fatlength provisoire !!!!! (tester la variable adéquate)
+ //rem: fatlength provisoire !!!!! (tester la variable adï¿½quate)
  //initialisation de tout le disque avec E5
  for(i = 0; i < 256; i++) buffer[i] = 0xe5;
  fseek(ffd, u, SEEK_SET);
@@ -146,7 +147,7 @@ void Loadfd(char *name)
 {
  char filename[256];
  extern char path[][TEXT_MAXLENGTH];
- //fermeture disquette éventuellement ouverte
+ //fermeture disquette ï¿½ventuellement ouverte
  if(ffd) {fclose(ffd); ffd = NULL; fdname[0] = 0;}
  if(name[0] == 0) return;
  //ouverture de la nouvelle disquette
@@ -194,7 +195,7 @@ void Loadk7(char *name)
 {
  char filename[256];
  extern char path[][TEXT_MAXLENGTH];
- if(fk7) {fclose(fk7); fk7 = NULL; k7name[0] = 0;} //fermeture cassette éventuellement ouverte
+ if(fk7) {fclose(fk7); fk7 = NULL; k7name[0] = 0;} //fermeture cassette ï¿½ventuellement ouverte
  if(name[0] == 0) return;
  strcpy(k7name, name);
  strcpy(filename, path[0]);

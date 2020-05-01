@@ -20,11 +20,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+#include <libgen.h>
 #include <SDL.h>
 #include "dcto8dicon.h"
 #include "dcto8dglobal.h"
 #include "dcto8dmsg.h"
 #include "dcto8dinterface.h"
+#include "dcto8ddevices.h"
 
 #define SDL_main main    //indispensable pour �viter l'erreur
                          //undefined reference to `WinMain@16'
@@ -277,6 +279,12 @@ int main(int argc, char *argv[])
  extern void Initfontsurfaces(), Initbuttonsurfaces(), Initstatusbar();
  extern void Resizescreen(int x, int y), Displayscreen(), Keyboardinit();
 
+ //First arg can be the path to k7, fd or memo
+ extern char path[][TEXT_MAXLENGTH]; //repertoires des fichiers k7, fd, memo
+ extern void Loadk7(char *name);
+ extern void Loadfd(char *name);
+ extern void Loadmemo(char *name);
+
  //initialisations
  Joyinit();                        //Joysticks initialization
  Initoptions();                    //Option initialization
@@ -316,6 +324,38 @@ int main(int argc, char *argv[])
  if(SDL_OpenAudio(&audio, NULL) < 0 ) SDL_error(4);
  SDL_PauseAudio(0);    //Lance l'emulation
  SDL_EnableUNICODE(1);
+
+ //First arg can be the path to k7, df or memo. Loads it if any.
+ if (argc==2)
+ {
+  char* ts1 = strdup(argv[1]);
+  char* ts2 = strdup(argv[1]);
+  char* ts3 = strdup(argv[1]);
+
+  char* ext = strrchr(ts3, '.');
+
+  if (ext)
+  {
+   if (strcmp(ext, ".k7") == 0)
+   {
+    strcpy(path[0],dirname(ts1));
+    strcat(path[0], "/");
+    Loadk7(basename(ts2));
+   }
+   else if (strcmp(ext, ".fd") == 0)
+   {
+    strcpy(path[1],dirname(ts1));
+    strcat(path[1], "/");
+    Loadfd(basename(ts2));
+   }
+   else if (strcmp(ext, ".m7") == 0)
+   {
+    strcpy(path[2],dirname(ts1));
+    strcat(path[2], "/");
+    Loadmemo(basename(ts2));
+   }
+  }
+ }
 
  //test events
  Eventloop();
