@@ -72,7 +72,7 @@ const dialogbutton keyboardbutton[KEYBOARDBUTTON_MAX] = {
 {458, 138, 50}, //0x1e "  0   pad",
 {126, 138, 51}, //0x1f "  C",
 { 10,  30, 52}, //0x20 "F6  F1",
-{ 68,  60, 53}, //0x21 " é 2",
+{ 68,  60, 53}, //0x21 " ï¿½ 2",
 { 80,  86, 54}, //0x22 "  Z",
 { 88, 112, 55}, //0x23 "  S",
 {484,  60, 56}, //0x24 "  8   pad",
@@ -88,7 +88,7 @@ const dialogbutton keyboardbutton[KEYBOARDBUTTON_MAX] = {
 {510,  86, 66}, //0x2e "  6   pad",
 { 74, 138, 67}, //0x2f "  W",
 { 10,  86, 68}, //0x30 "  STOP",
-{198,  60, 69}, //0x31 " è 7",
+{198,  60, 69}, //0x31 " ï¿½ 7",
 {210,  86, 70}, //0x32 "  U",
 {218, 112, 71}, //0x33 "  J",
 {100, 164, 72}, //0x34 "ESPACE",
@@ -104,19 +104,19 @@ const dialogbutton keyboardbutton[KEYBOARDBUTTON_MAX] = {
 {348, 112, 82}, //0x3e "  ] }",
 {256, 138, 83}, //0x3f " ; .",
 {999,  30, 84}, //0x40 "?????",
-{250,  60, 85}, //0x41 " ç 9",
+{250,  60, 85}, //0x41 " ï¿½ 9",
 {262,  86, 86}, //0x42 "  O",
 {270, 112, 87}, //0x43 "  L",
 {354,  60, 88}, //0x44 "  - \\",
-{322, 112, 89}, //0x45 "ù %",
+{322, 112, 89}, //0x45 "ï¿½ %",
 {380,  86, 90}, //0x46 "ENT",
 {282, 138, 91}, //0x47 " : /",
 {999,  30, 92}, //0x48 "?????",
-{276,  60, 93}, //0x49 " à 0",
+{276,  60, 93}, //0x49 " ï¿½ 0",
 {288,  86, 94}, //0x4a "  P",
 {296, 112, 95}, //0x4b "  M",
-{302,  60, 96}, //0x4c " ) °",
-{314,  86, 97}, //0x4d " ^ ¨",
+{302,  60, 96}, //0x4c " ) ï¿½",
+{314,  86, 97}, //0x4d " ^ ï¿½",
 {510, 112, 98}, //0x4e "  3   pad",
 {308, 138, 99}, //0x4f "> <",
 { 10, 138, 100}, //0x50 "LCK",
@@ -147,7 +147,7 @@ const dialogbutton joystickbutton[JOYSTICKBUTTON_MAX] = {
 extern int language;
 extern int touche[];
 extern int rmask, gmask, bmask, amask;
-extern int dialog;             //0 ou n°boite de dialogue affichee
+extern int dialog;             //0 ou nï¿½boite de dialogue affichee
 extern SDL_Surface *screen;    //surface d'affichage de l'ecran
 extern SDL_Surface *textbox;   //surface d'affichage de texte
 extern SDL_Surface *dialogbox; //surface d'affichage dialogbox
@@ -193,7 +193,7 @@ void Displayjoy()
  Drawtextbox(dialogbox, string, rect, 0, blanc, -1);
 }
 
-//Création de la boite de dialogue du clavier ////////////////////////////////
+//Crï¿½ation de la boite de dialogue du clavier ////////////////////////////////
 void Drawkeyboardbox()
 {
  SDL_Rect rect;
@@ -224,7 +224,7 @@ void Drawkeyboardbox()
  pause6809 = 0;
 }
 
-//Création de la boite de dialogue des manettes //////////////////////////////
+//Crï¿½ation de la boite de dialogue des manettes //////////////////////////////
 void Drawjoystickbox()
 {
  SDL_Rect rect;
@@ -388,6 +388,9 @@ void Keyboardinit()
 void Keyup(int keysym, int scancode)
 {
  int ijoy, ikey, keycode;
+ #ifdef __GCW0__
+ extern int penbutton, xmove, ymove;
+ #endif
  extern void Joysemul(int i, int state);
  extern void TO8key(int n);
  //le scancode seul ne permet pas de distinguer le pave numerique
@@ -396,6 +399,11 @@ void Keyup(int keysym, int scancode)
  keycode = scancode;
  if(keysym == 0x12c) keycode += 0x40;           //numlock
  if((keysym & 0xff0) == 0x100) keycode += 0x40; //autres touches numpad
+
+ #ifdef __GCW0__
+ //click de la souris associÃ© Ã  L1
+ if(keysym == SDLK_TAB) {penbutton = 0; xmove = ymove = 0; return;}
+ #endif
 
  //emulation joystick
  ijoy = to8djoycode[keycode & 0xff];
@@ -422,6 +430,10 @@ void Keydown(int sym, int scancode, int unicode)
 {
  int ijoy, ikey, keycode;
  extern int pause6809;
+ #ifdef __GCW0__
+ extern int penbutton;
+ extern void Mouseclick();
+ #endif
  extern dialogeditbox *focus;
  extern void Initprog();
  extern void exit(int n);
@@ -437,7 +449,7 @@ void Keydown(int sym, int scancode, int unicode)
  lastkeysym = sym;
 
  //essai (infructueux) de detection des deux touches shift simultanees
- //quand une touche shift est enfoncée, les mouvements de l'autre
+ //quand une touche shift est enfoncï¿½e, les mouvements de l'autre
  //ne sont pas detectes, et elle est toujours consideree comme relachee
  //idem pour les touches CTRL droit et gauche
  //difference pour les touches ALT : si la gauche est enfoncee, la droite
@@ -459,10 +471,21 @@ void Keydown(int sym, int scancode, int unicode)
  //SDL_SetModState(0);
 
  //touches de raccourcis dcto8d
- if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}
- if(sym == SDLK_PAUSE) {pause6809 = 1; return;}
- //if(keycode == 0x01) {Initprog(); pause6809 = 0; return;}//touche ESC enfoncee
- //if(keycode == 0x45) {pause6809 = 1; return;}            //touche PAUSE enfoncee
+  #ifdef __GCW0__
+  //reboot TO8D par SELECT (gcw0)
+  if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}
+  //pause de l'emulation par R2
+  if(sym == SDLK_PAGEDOWN) {pause6809 = 1; return;}
+  //sortie de l'emulateur par START
+  if(sym == SDLK_RETURN) {exit(0);}
+  //click de la souris associÃ© Ã  L1
+  if(sym == SDLK_TAB) {penbutton = 1; Mouseclick(); return;}
+ #else
+  //reboot TO8D par ESC
+  if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}
+  //pause de l'emulation par PAUSE
+  if(sym == SDLK_PAUSE) {pause6809 = 1; return;}
+ #endif
 
  //la touche AltGr envoie 2 evenements keydown
  //le premier keysym = 0x132 (LCTRL)
@@ -559,7 +582,7 @@ void Testshiftkey()
 #ifdef WIN32
  static int lshift, rshift; //position des touches shift
  //Remarque : VK_LSHIFT et VK_RSHIFT ne marchent pas avec Windows 98se
- //D'après Microsoft : Windows 95/98/Me: Windows 95 does not support
+ //D'aprï¿½s Microsoft : Windows 95/98/Me: Windows 95 does not support
  //the left- and right-distinguishing constants. If you call
  //GetAsyncKeyState with these constants, the return value is zero.
  if(GetAsyncKeyState(VK_LSHIFT) < 0)

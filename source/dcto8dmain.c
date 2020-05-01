@@ -212,19 +212,18 @@ void Eventloop()
     #ifndef __GCW0__
     case SDL_VIDEORESIZE:
          Resizescreen(event.resize.w, event.resize.h); break;
-    #endif
     case SDL_MOUSEBUTTONDOWN:
          penbutton = 1; Mouseclick(); break;
     case SDL_MOUSEBUTTONUP:
          penbutton = 0; xmove = ymove = 0; break;
+    #endif
+    // Mouse is available using right RG350 stick (activate with POWER + L1)
     case SDL_MOUSEMOTION:
          xmouse = event.motion.x; ymouse = event.motion.y;
          xpen = xmouse * XBITMAP / xclient - 16;
          ypen = (ymouse - YSTATUS) * YBITMAP / yclient - 8;
          if(xmove) if(ymove) Dialogmove(); break;
     case SDL_KEYDOWN:
-         // DEBUG WIP <=> Exit on keypress
-         return;
          Keydown(event.key.keysym.sym, event.key.keysym.scancode,
                  event.key.keysym.unicode); break;
     case SDL_KEYUP:
@@ -289,10 +288,14 @@ int main(int argc, char *argv[])
  //initialize SDL video and keyboard
  if(SDL_Init(SDL_INIT_VIDEO) < 0) SDL_error(2);
  atexit(SDL_Quit);
+ #ifdef __GCW0__
+ SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+ #else
  //titre de la fenetre (note : absent en fullscreen gcw0)
  rw = SDL_RWFromMem(dcto8dicon, sizeof(dcto8dicon));
  SDL_WM_SetIcon(SDL_LoadBMP_RW(rw, 1), NULL);  //icone fenetre
  SDL_WM_SetCaption(msg[0][language], NULL);    //titre fenetre
+ #endif
  SDL_SetCursor(SDL_CreateCursor(cursor, cursor + 48, 16, 24, 0, 0)); //curseur
  SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
  Resizescreen(xclient, yclient + YSTATUS);
