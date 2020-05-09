@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=dcto8d
+Comment=Thomson TO8D emulator
+Exec=dcto8d.dge %f
+Icon=icon
+Categories=emulators;
