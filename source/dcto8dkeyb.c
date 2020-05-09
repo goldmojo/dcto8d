@@ -142,7 +142,7 @@ const dialogbutton joystickbutton[JOYSTICKBUTTON_MAX] = {
 { 43, 216, 16}, //0x00 "[defaut]",
 {238, 216, 17}  //0x01 "[sauver]",
 };
-
+ 
 //variables externes
 extern int language;
 extern int touche[];
@@ -401,8 +401,17 @@ void Keyup(int keysym, int scancode)
  if((keysym & 0xff0) == 0x100) keycode += 0x40; //autres touches numpad
 
  #ifdef __GCW0__
- //click de la souris associé à L1
- if(keysym == SDLK_TAB) {penbutton = 0; xmove = ymove = 0; return;}
+  //click de la souris associé à L1
+  if(keysym == SDLK_TAB) {penbutton = 0; xmove = ymove = 0; return;}
+  //relache les touches lorsque nécéssaire
+  if(keysym == GCW_BUTTON_B) {keycode = 0x38;}
+  if(keysym == GCW_BUTTON_Y) {Keyup(0, 0x32); keycode = 0x0a;}
+  if(keysym == GCW_BUTTON_X) {Keyup(0, 0x32); keycode = 0x0b;}
+  if(keysym == GCW_BUTTON_UP) {keycode = 0x6f;}
+  if(keysym == GCW_BUTTON_RIGHT) {keycode = 0x72;}
+  if(keysym == GCW_BUTTON_DOWN) {keycode = 0x74;}
+  if(keysym == GCW_BUTTON_LEFT) {keycode = 0x71;}
+  if(keysym == GCW_BUTTON_A) {keycode = 0x3e;}
  #endif
 
  //emulation joystick
@@ -481,9 +490,17 @@ void Keydown(int sym, int scancode, int unicode)
   //click de la souris associé à L1
   if(sym == GCW_BUTTON_L1) {penbutton = 1; Mouseclick(); return;}
   //par défaut, le jeu se lance par "B" associé à "B" sur la RG350
-  //associe "1" à la touche Y et "2" à la touche X
-  //if(sym == SDLK_RETURN) {exit(0);}
-  //if(sym == SDLK_RETURN) {exit(0);}
+  if(sym == GCW_BUTTON_B) {lastkeysym = sym = SDLK_b; lastkeycode = keycode = 0x38;}
+  //associe "SHIFT + 1" à la touche Y et "SHIFT + 2" à la touche X
+  if(sym == GCW_BUTTON_Y) {Keydown(0, 0x32, 0x32); lastkeysym = sym = lastkeycode = keycode = SDLK_1; lastkeycode = keycode = 0x0a;}
+  if(sym == GCW_BUTTON_X) {Keydown(0, 0x32, 0x32); lastkeysym = sym = lastkeycode = keycode = SDLK_2; lastkeycode = keycode = 0x0b;}
+  //associe le pad à l'émulation joystick 1
+  if(sym == GCW_BUTTON_UP) {lastkeysym = sym = SDLK_UP; lastkeycode = keycode = 0x6f;}
+  if(sym == GCW_BUTTON_RIGHT) {lastkeysym = sym = SDLK_RIGHT; lastkeycode = keycode = 0x72;}
+  if(sym == GCW_BUTTON_DOWN) {lastkeysym = sym = SDLK_DOWN; lastkeycode = keycode = 0x74;}
+  if(sym == GCW_BUTTON_LEFT) {lastkeysym = sym = SDLK_LEFT; lastkeycode = keycode = 0x71;}
+  //associe le bouton "A" sur la RG350 au bouton du joystick 1
+  if(sym == GCW_BUTTON_A) {lastkeysym = sym = SDLK_RSHIFT; lastkeycode = keycode = 0x3e;}
  #else
   //reboot TO8D par ESC
   if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}

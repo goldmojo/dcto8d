@@ -22,9 +22,6 @@
 //
 //2007-12-28 : v11.0 released
 
-// DEBUG
-// #define __GCW0__ 1
-
 #ifdef __GCW0__
  #include "dcto8dpltfcustom.h"
 #endif
