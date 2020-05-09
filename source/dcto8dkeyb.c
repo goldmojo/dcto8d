@@ -401,7 +401,7 @@ void Keyup(int keysym, int scancode)
  if((keysym & 0xff0) == 0x100) keycode += 0x40; //autres touches numpad
 
  #ifdef __GCW0__
- //click de la souris associÃ© Ã  L1
+ //click de la souris associé à L1
  if(keysym == SDLK_TAB) {penbutton = 0; xmove = ymove = 0; return;}
  #endif
 
@@ -471,15 +471,19 @@ void Keydown(int sym, int scancode, int unicode)
  //SDL_SetModState(0);
 
  //touches de raccourcis dcto8d
-  #ifdef __GCW0__
+ #ifdef __GCW0__
   //reboot TO8D par SELECT (gcw0)
-  if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}
+  if(sym == GCW_BUTTON_SELECT) {Initprog(); pause6809 = 0; return;}
   //pause de l'emulation par R2
-  if(sym == SDLK_PAGEDOWN) {pause6809 = 1; return;}
+  if(sym == GCW_BUTTON_R2) {pause6809 = 1; return;}
   //sortie de l'emulateur par START
-  if(sym == SDLK_RETURN) {exit(0);}
-  //click de la souris associÃ© Ã  L1
-  if(sym == SDLK_TAB) {penbutton = 1; Mouseclick(); return;}
+  if(sym == GCW_BUTTON_START) {exit(0);}
+  //click de la souris associé à L1
+  if(sym == GCW_BUTTON_L1) {penbutton = 1; Mouseclick(); return;}
+  //par défaut, le jeu se lance par "B" associé à "B" sur la RG350
+  //associe "1" à la touche Y et "2" à la touche X
+  //if(sym == SDLK_RETURN) {exit(0);}
+  //if(sym == SDLK_RETURN) {exit(0);}
  #else
   //reboot TO8D par ESC
   if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}

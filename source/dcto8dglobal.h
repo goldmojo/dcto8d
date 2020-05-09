@@ -22,16 +22,23 @@
 //
 //2007-12-28 : v11.0 released
 
+// DEBUG
+// #define __GCW0__ 1
+
+#ifdef __GCW0__
+ #include "dcto8dpltfcustom.h"
+#endif
+
 #define XBITMAP 672
 #define YBITMAP 216
 
 #define YSTATUS 20             //taille de la barre de statut en haut
 
 #ifdef __GCW0__
- #define XMIN 320              //taille min de l'ecran
- #define YMIN 240
- #define XINIT 320             //taille initiale de l'ecran
- #define YINIT 240
+ #define XMIN GCW_SCREEN_SIZE_X    //taille min de l'ecran
+ #define YMIN GCW_SCREEN_SIZE_Y
+ #define XINIT GCW_SCREEN_SIZE_X   //taille initiale de l'ecran
+ #define YINIT GCW_SCREEN_SIZE_Y
 #else
  #define XMIN 336              //taille min de l'ecran
  #define YMIN 236
