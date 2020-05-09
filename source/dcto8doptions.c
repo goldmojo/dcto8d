@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "dcto8dglobal.h"
 #include "dcto8dinterface.h"
 
@@ -222,17 +223,27 @@ void Initoptions()
 {
  int r;
  char string[256];
- char *currentdir;
+ char currentdir[256];
+ char inipath[256];
  Initdefault();
  //chemins d'acces
- currentdir = getcwd (NULL, 0);
+ #ifdef __GCW0__
+  strcpy(currentdir, getenv("HOME"));
+ #else
+  strcpy(currentdir, getcwd (NULL, 0));
+ #endif
+ strcat(currentdir, "/.dcto8d");
+ mkdir(currentdir,S_IRWXU | S_IRWXG | S_IRWXO); // create $HOME/.program if it doesn't exist
  strcat(currentdir, "/");
  strcpy(path[0], currentdir);
  strcpy(path[1], currentdir);
  strcpy(path[2], currentdir);
+ //full path
+ strcpy(inipath, currentdir);
+ strcat(inipath, "dcto8d.ini");
  //ouverture fichier dcto8d.ini
- fpi = fopen("dcto8d.ini", "rb+");                 //s'il existe ouverture
- if(fpi == NULL) fpi = fopen("dcto8d.ini", "wb+"); //s'il n'existe pas : creation
+ fpi = fopen(inipath, "rb+");                 //s'il existe ouverture
+ if(fpi == NULL) fpi = fopen(inipath, "wb+"); //s'il n'existe pas : creation
  r = fread(string, 12, 1, fpi);                    //lecture identifiant
  if(strcmp("dcto8dini-01", string) != 0) return;
  //initialisation des options
