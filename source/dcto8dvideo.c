@@ -257,7 +257,7 @@ void Resizescreen(int x, int y)
  }
  pmin = (int*)(screen->pixels) + YSTATUS * xclient;
  pmax = pmin + yclient * xclient;
- //rafraichissement de l'ï¿½cran
+ //rafraichissement de l'écran
  pcurrentline = pmin;    //initialisation pointeur ligne courante
  pcurrentpixel = pmin;   //initialisation pointeur pixel courant
  currentlinesegment = 0; //initialisation numero d'octet dans la ligne

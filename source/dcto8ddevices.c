@@ -121,9 +121,9 @@ void Formatdisk()
  //erreur 72 = protection ecriture
  if(fdprotection == 1) {Diskerror(72); return;}
  u = Mgetc(0x6049) & 0xff; if(u > 03) return; //unite
- u = (1280 * u) << 8; //debut de l'unitï¿½ dans le fichier .fd
+ u = (1280 * u) << 8; //debut de l'unité dans le fichier .fd
  fatlength = 160;     //80=160Ko, 160=320Ko
- //rem: fatlength provisoire !!!!! (tester la variable adï¿½quate)
+ //rem: fatlength provisoire !!!!! (tester la variable adéquate)
  //initialisation de tout le disque avec E5
  for(i = 0; i < 256; i++) buffer[i] = 0xe5;
  fseek(ffd, u, SEEK_SET);
@@ -147,7 +147,7 @@ void Loadfd(char *name)
 {
  char filename[256];
  extern char path[][TEXT_MAXLENGTH];
- //fermeture disquette ï¿½ventuellement ouverte
+ //fermeture disquette éventuellement ouverte
  if(ffd) {fclose(ffd); ffd = NULL; fdname[0] = 0;}
  if(name[0] == 0) return;
  //ouverture de la nouvelle disquette
@@ -195,7 +195,7 @@ void Loadk7(char *name)
 {
  char filename[256];
  extern char path[][TEXT_MAXLENGTH];
- if(fk7) {fclose(fk7); fk7 = NULL; k7name[0] = 0;} //fermeture cassette ï¿½ventuellement ouverte
+ if(fk7) {fclose(fk7); fk7 = NULL; k7name[0] = 0;} //fermeture cassette éventuellement ouverte
  if(name[0] == 0) return;
  strcpy(k7name, name);
  strcpy(filename, path[0]);

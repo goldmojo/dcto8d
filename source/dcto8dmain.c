@@ -28,7 +28,7 @@
 #include "dcto8dinterface.h"
 #include "dcto8ddevices.h"
 
-#define SDL_main main    //indispensable pour ï¿½viter l'erreur
+#define SDL_main main    //indispensable pour éviter l'erreur
                          //undefined reference to `WinMain@16'
 
 
