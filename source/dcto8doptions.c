@@ -59,6 +59,9 @@ extern char *msg[MSG_MAX][LANGUAGE_MAX]; //messages en plusieurs langues
 extern int rmask, gmask, bmask, amask;
 extern button bouton[];
 extern char path[][TEXT_MAXLENGTH];
+#ifdef __GCW0__
+ extern int activejoy; //joystick émulé par le PAD RG350 (0 ou 1)
+#endif
 
 //Draw option box ////////////////////////////////////////////////////////////
 void Drawoptionbox()
@@ -115,6 +118,9 @@ void Initdefault()
  k7protection = 1;      //protection cassette
  fdprotection = 1;      //protection disquette
  keybpriority = 0;      //manettes prioritaires
+ #ifdef __GCW0__
+  activejoy = 0; //joystick par defaut = 0
+ #endif
 }
 
 //Mise a jour d'un parametre avec la valeur i de la popuptable////////////////

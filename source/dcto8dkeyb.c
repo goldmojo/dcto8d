@@ -29,6 +29,9 @@
 #include "dcto8dglobal.h"
 #include "dcto8dkeyb.h"
 #include "dcto8dinterface.h"
+#ifdef __GCW0__
+ #include "dcto8ddevices.h"
+#endif
 
 //variables globales
 char to8dkeycode[256]; //scancode to8d en fonction du scancode pc
@@ -36,6 +39,9 @@ char to8djoycode[256]; //numero bouton joystick en fonction du scancode pc
 int keybpriority;      //0=manettes prioritaires 1=clavier prioritaire
 int lastkeycode;       //keycode derniere touche enfoncee
 int lastkeysym;        //keysym derniere touche enfoncee
+#ifdef __GCW0__
+ int activejoy; //joystick émulé par le PAD RG350 (0 ou 1)
+#endif
 
 #define KEYBOARDBUTTON_MAX 86 //nombre de boutons boite de dialogue clavier
 const dialogbutton keyboardbutton[KEYBOARDBUTTON_MAX] = {
@@ -389,7 +395,10 @@ void Keyup(int keysym, int scancode)
 {
  int ijoy, ikey, keycode;
  #ifdef __GCW0__
- extern int penbutton, xmove, ymove;
+  extern int penbutton, xmove, ymove;
+  extern char k7name[100];   // nom du fichier cassette
+  extern char fdname[100];   // nom du fichier disquette
+  extern char memoname[100]; // nom du fichier cartouche
  #endif
  extern void Joysemul(int i, int state);
  extern void TO8key(int n);
@@ -401,17 +410,34 @@ void Keyup(int keysym, int scancode)
  if((keysym & 0xff0) == 0x100) keycode += 0x40; //autres touches numpad
 
  #ifdef __GCW0__
-  //click de la souris associé à L1
-  if(keysym == SDLK_TAB) {penbutton = 0; xmove = ymove = 0; return;}
+  //click de la souris associé à L1 ou R1
+  if(keysym == GCW_BUTTON_L1) {penbutton = 0; xmove = ymove = 0; return;}
+  if(keysym == GCW_BUTTON_R1) {penbutton = 0; xmove = ymove = 0; return;}
   //relache les touches lorsque nécéssaire
-  if(keysym == GCW_BUTTON_B) {keycode = 0x38;}
+  if(keysym == GCW_BUTTON_B)
+  {
+   if(memoname[0] != 0) {Keyup(0, 0x32); keycode = 0x13;} // TO8D = SHIFT + 0
+   if(k7name[0] != 0) {keycode = 0x36;}   // TO8D = C
+   if(fdname[0] != 0) {keycode = 0x38;}   // TO8D = B
+  }
   if(keysym == GCW_BUTTON_Y) {Keyup(0, 0x32); keycode = 0x0a;}
   if(keysym == GCW_BUTTON_X) {Keyup(0, 0x32); keycode = 0x0b;}
-  if(keysym == GCW_BUTTON_UP) {keycode = 0x6f;}
-  if(keysym == GCW_BUTTON_RIGHT) {keycode = 0x72;}
-  if(keysym == GCW_BUTTON_DOWN) {keycode = 0x74;}
-  if(keysym == GCW_BUTTON_LEFT) {keycode = 0x71;}
-  if(keysym == GCW_BUTTON_A) {keycode = 0x3e;}
+  if(activejoy == 0)
+  {
+   if(keysym == GCW_BUTTON_UP) {keycode = 0x94;}
+   if(keysym == GCW_BUTTON_RIGHT) {keycode = 0x99;}
+   if(keysym == GCW_BUTTON_DOWN) {keycode = 0x98;}
+   if(keysym == GCW_BUTTON_LEFT) {keycode = 0x97;}
+   if(keysym == GCW_BUTTON_A) {keycode = 0xac;}
+  }
+  else
+  {
+   if(keysym == GCW_BUTTON_UP) {keycode = 0xb0;}
+   if(keysym == GCW_BUTTON_RIGHT) {keycode = 0x91;}
+   if(keysym == GCW_BUTTON_DOWN) {keycode = 0x90;}
+   if(keysym == GCW_BUTTON_LEFT) {keycode = 0x8f;}
+   if(keysym == GCW_BUTTON_A) {keycode = 0x96;}
+  }
  #endif
 
  //emulation joystick
@@ -440,8 +466,11 @@ void Keydown(int sym, int scancode, int unicode)
  int ijoy, ikey, keycode;
  extern int pause6809;
  #ifdef __GCW0__
- extern int penbutton;
- extern void Mouseclick();
+  extern int penbutton;
+  extern void Mouseclick();
+  extern char k7name[100];   // nom du fichier cassette
+  extern char fdname[100];   // nom du fichier disquette
+  extern char memoname[100]; // nom du fichier cartouche
  #endif
  extern dialogeditbox *focus;
  extern void Initprog();
@@ -483,24 +512,46 @@ void Keydown(int sym, int scancode, int unicode)
  #ifdef __GCW0__
   //reboot TO8D par SELECT (gcw0)
   if(sym == GCW_BUTTON_SELECT) {Initprog(); pause6809 = 0; return;}
-  //pause de l'emulation par R2
-  if(sym == GCW_BUTTON_R2) {pause6809 = 1; return;}
   //sortie de l'emulateur par START
   if(sym == GCW_BUTTON_START) {exit(0);}
-  //click de la souris associé à L1
+  //click de la souris associé à L1 ou R1
   if(sym == GCW_BUTTON_L1) {penbutton = 1; Mouseclick(); return;}
-  //par défaut, le jeu se lance par "B" associé à "B" sur la RG350
-  if(sym == GCW_BUTTON_B) {lastkeysym = sym = SDLK_b; lastkeycode = keycode = 0x38;}
+  if(sym == GCW_BUTTON_R1) {penbutton = 1; Mouseclick(); return;}
+  //commute le joystick utilisé par L2 ou R2
+  if(sym == GCW_BUTTON_L2) {if (activejoy == 0) {activejoy = 1; return;} else {activejoy = 0; return;}}
+  if(sym == GCW_BUTTON_R2) {if (activejoy == 0) {activejoy = 1; return;} else {activejoy = 0; return;}}
+  //lancer le jeu associé à "B" sur la RG350
+    //pour lancer memo 7, associé à "SHIFT + 0"
+    //pour lancer k7, associé à "C"
+    //pour lancer fd, associé à "B"
+  if(sym == GCW_BUTTON_B)
+  {
+   if(memoname[0] != 0) {Keydown(0, 0x32, 0x32); lastkeysym = sym = SDLK_0; lastkeycode = keycode = 0x13;} // TO8D = SHIFT + 0
+   if(k7name[0] != 0) {lastkeysym = sym = SDLK_c; lastkeycode = keycode = 0x36;}   // TO8D = C
+   if(fdname[0] != 0) {lastkeysym = sym = SDLK_b; lastkeycode = keycode = 0x38;}   // TO8D = B
+  }
   //associe "SHIFT + 1" à la touche Y et "SHIFT + 2" à la touche X
   if(sym == GCW_BUTTON_Y) {Keydown(0, 0x32, 0x32); lastkeysym = sym = lastkeycode = keycode = SDLK_1; lastkeycode = keycode = 0x0a;}
   if(sym == GCW_BUTTON_X) {Keydown(0, 0x32, 0x32); lastkeysym = sym = lastkeycode = keycode = SDLK_2; lastkeycode = keycode = 0x0b;}
-  //associe le pad à l'émulation joystick 1
-  if(sym == GCW_BUTTON_UP) {lastkeysym = sym = SDLK_UP; lastkeycode = keycode = 0x6f;}
-  if(sym == GCW_BUTTON_RIGHT) {lastkeysym = sym = SDLK_RIGHT; lastkeycode = keycode = 0x72;}
-  if(sym == GCW_BUTTON_DOWN) {lastkeysym = sym = SDLK_DOWN; lastkeycode = keycode = 0x74;}
-  if(sym == GCW_BUTTON_LEFT) {lastkeysym = sym = SDLK_LEFT; lastkeycode = keycode = 0x71;}
-  //associe le bouton "A" sur la RG350 au bouton du joystick 1
-  if(sym == GCW_BUTTON_A) {lastkeysym = sym = SDLK_RSHIFT; lastkeycode = keycode = 0x3e;}
+  //associe le pad à l'émulation joystick 0 ou 1
+  if(activejoy == 0)
+  {
+   if(sym == GCW_BUTTON_UP) {lastkeysym = sym = SDLK_UP; lastkeycode = keycode = 0x94;}
+   if(sym == GCW_BUTTON_RIGHT) {lastkeysym = sym = SDLK_RIGHT; lastkeycode = keycode = 0x99;}
+   if(sym == GCW_BUTTON_DOWN) {lastkeysym = sym = SDLK_DOWN; lastkeycode = keycode = 0x98;}
+   if(sym == GCW_BUTTON_LEFT) {lastkeysym = sym = SDLK_LEFT; lastkeycode = keycode = 0x97;}
+   //associe le bouton "A" sur la RG350 au bouton du joystick
+   if(sym == GCW_BUTTON_A) {lastkeysym = sym = SDLK_RSHIFT; lastkeycode = keycode = 0xac;}
+  }
+  else
+  {
+   if(sym == GCW_BUTTON_UP) {lastkeysym = sym = SDLK_UP; lastkeycode = keycode = 0xb0;}
+   if(sym == GCW_BUTTON_RIGHT) {lastkeysym = sym = SDLK_RIGHT; lastkeycode = keycode = 0x91;}
+   if(sym == GCW_BUTTON_DOWN) {lastkeysym = sym = SDLK_DOWN; lastkeycode = keycode = 0x90;}
+   if(sym == GCW_BUTTON_LEFT) {lastkeysym = sym = SDLK_LEFT; lastkeycode = keycode = 0x8f;}
+   //associe le bouton "A" sur la RG350 au bouton du joystick
+   if(sym == GCW_BUTTON_A) {lastkeysym = sym = SDLK_RSHIFT; lastkeycode = keycode = 0x96;}
+  }
  #else
   //reboot TO8D par ESC
   if(sym == SDLK_ESCAPE) {Initprog(); pause6809 = 0; return;}
