@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.includePath": [
+        "/opt/gcw0-toolchain/usr/mipsel-gcw0-linux-uclibc/sysroot/usr/include/SDL"
+    ],
+    "C_Cpp.default.defines": [
+        "__GCW0__"
+    ]
+}

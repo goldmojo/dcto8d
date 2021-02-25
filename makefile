@@ -8,6 +8,7 @@ TOOLCHAIN = /opt/gcw0-toolchain/usr
 CC = $(TOOLCHAIN)/bin/mipsel-linux-gcc
 LD = $(TOOLCHAIN)/bin/mipsel-linux-gcc
 BINARY = dcto8d.dge
+OPK_BINARY = dcto8d.opk
 else
 CC = gcc
 LD = gcc
@@ -30,12 +31,12 @@ objects = object/dcto8dmain.o object/dc6809emul.o \
 	object/dcto8dkeyb.o object/dcto8doptions.o object/dcto8dvideo.o \
 	object/dc6809dass.o object/dcto8ddesass.o
 
-all : object $(objects)
+$(BINARY) : object $(objects)
 	$(LD) $(objects) -o $(BINARY) $(CFLAGS)
 
-opk : all
-	rm -f dcto8d.opk
-	mksquashfs dcto8d.dge distrib/icon.png distrib/dcto8d_explorer.gcw0.desktop dcto8d.opk -all-root -no-xattrs -noappend -no-exports
+opk : $(BINARY)
+	rm -f $(OPK_BINARY)
+	mksquashfs $(BINARY) distrib/icon.png distrib/dcto8d_explorer.gcw0.desktop $(OPK_BINARY) -all-root -no-xattrs -noappend -no-exports
 
 object :
 	mkdir object
@@ -71,4 +72,4 @@ object/dcto8ddesass.o: source/dcto8ddesass.c
 	$(CC) $(CDEFS) $(CFLAGS) -c source/dcto8ddesass.c -o object/dcto8ddesass.o -O2
 
 clean :
-	rm $(BINARY) $(objects)
+	rm -f $(BINARY) $(objects) $(OPK_BINARY)
