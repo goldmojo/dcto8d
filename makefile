@@ -30,8 +30,15 @@ objects = object/dcto8dmain.o object/dc6809emul.o \
 	object/dcto8dkeyb.o object/dcto8doptions.o object/dcto8dvideo.o \
 	object/dc6809dass.o object/dcto8ddesass.o
 
-all : $(objects)
+all : object $(objects)
 	$(LD) $(objects) -o $(BINARY) $(CFLAGS)
+
+opk : all
+	rm -f dcto8d.opk
+	mksquashfs dcto8d.dge distrib/icon.png distrib/dcto8d_explorer.gcw0.desktop dcto8d.opk -all-root -no-xattrs -noappend -no-exports
+
+object :
+	mkdir object
 
 object/dcto8dmain.o : source/dcto8dmain.c
 	$(CC) $(CDEFS) $(CFLAGS) -c source/dcto8dmain.c -o object/dcto8dmain.o -O2
